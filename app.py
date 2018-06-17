@@ -60,7 +60,7 @@ def handle_message(event):
             datas = json.loads(url.read().decode())
             for data in datas:
                 if data['time'] == None:
-                    time = int(data['datetime'][11:-7]) % 24
+                    time = (int(data['datetime'][11:-7]) + 7) % 24
                     tmp = '{}:00'.format(time)
                     tmp = tmp.center(44, ' ') + '\n'
                     reply_message += tmp
