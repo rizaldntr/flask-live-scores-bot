@@ -1,5 +1,7 @@
 import os
 import re
+import urllib.request
+import json
 from flask import Flask, request, abort
 
 from linebot import (
@@ -11,6 +13,10 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
+
+BASE_URL = 'https://world-cup-json.herokuapp.com/matches'
+TODAY_MATCHES = '/today'
+CURRENT_MATCH = '/current'
 
 app = Flask(__name__)
 
@@ -42,8 +48,27 @@ def handle_message(event):
             re.match(r'\/wc18\s.*', event.message.text)):
         return
 
+    reply_message = 'Mohon maaf perintah tidak dikenal'
+
     if event.message.text == '/wc18 help':
         reply_message = 'hola-hola'
+
+    if event.message.text == '/wc18 today':
+        todayURL = '{}{}'.format(BASE_URL, TODAY_MATCHES)
+        with urllib.request.urlopen(todayURL) as url:
+            reply_message = ''
+            datas = json.loads(url.read().decode())
+            for data in datas:
+                if data['time'] == 'null':
+                    time = int(data['datetime'][11:-7]) % 24
+                    reply_message += str(time).center(44, ' ')
+                else:
+                    reply_message += data['time'].center(44, ' ') + '\n'
+                tmp = '{} {} - {} {}'.format(
+                    data['home_team']['country'], data['home_team']['goals'],
+                    data['away_team']['country'], data['away_team']['goals']
+                )
+                reply_message += tmp.center(44, ' ') + '\n\n'
 
     line_bot_api.reply_message(
         event.reply_token,
