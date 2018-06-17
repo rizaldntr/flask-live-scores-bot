@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, abort, send_from_directory
+from flask import Flask, request, abort
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -34,9 +34,6 @@ def callback():
 
     return 'OK'
 
-@app.route('/football-data.events/<path:path>')
-def send_verify_api(path):
-    return send_from_directory('football-data.events', path)
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
