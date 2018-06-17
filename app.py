@@ -38,11 +38,11 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    if (event['message']['type'] != 'text' and
-            re.match(r'\/wc18\s.*', event['message']['text'])):
+    if (event.message.type != 'text' and
+            re.match(r'\/wc18\s.*', event.message.text)):
         return
 
-    if event['message']['text'] == '/wc18 help':
+    if event.message.text == '/wc18 help':
         reply_message = 'hola-hola'
 
     line_bot_api.reply_message(
