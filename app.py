@@ -61,7 +61,9 @@ def handle_message(event):
             for data in datas:
                 if data['time'] == None:
                     time = int(data['datetime'][11:-7]) % 24
-                    reply_message += str(time).center(44, ' ')
+                    tmp = '{}:00'.format(time)
+                    tmp = tmp.center(44, ' ') + '\n'
+                    reply_message += tmp
                 else:
                     reply_message += data['time'].center(44, ' ') + '\n'
                 tmp = '{} {} - {} {}'.format(
