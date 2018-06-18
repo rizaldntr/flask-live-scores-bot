@@ -60,6 +60,7 @@ def handle_message(event):
         todayURL = '{}{}'.format(BASE_URL, TODAY_MATCHES)
         res = requests.get(todayURL)
         datas = json.loads(res.content)
+        print (datas)
         messages = []            
         for data in datas:
             if data['time'] is None:
