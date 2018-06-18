@@ -26,7 +26,7 @@ def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, tim
         'KOR': 'https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg', 
         'BEL': 'https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_Belgium_(civil).svg', 
         'PAN': 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg', 
-        'TUN': 'https://upload.wikimedia.org/wikipedia/commons/c/ce /Flag_of_Tunisia.svg',
+        'TUN': 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Tunisia.svg',
         'ENG': 'https://upload.wikimedia.org/wikipedia/commons/b/be/Flag_of_England.svg', 
         'COL': 'https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Colombia.svg',
         'JPN': 'https://upload.wikimedia.org/wikipedia/commons/9/9e/Flag_of_Japan.svg', 
