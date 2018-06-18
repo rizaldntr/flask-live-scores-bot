@@ -48,10 +48,10 @@ def handle_message(event):
             re.match(r'\/wc18\s.*', event.message.text) is None):
         return
 
-    reply_message = TextSendMessage(text="Mohon maaf perintah tidak dikenal")
+    reply_message = 'Mohon maaf perintah tidak dikenal'
 
     if event.message.text == '/wc18 help':
-        reply_message = TextSendMessage(text=reply_message)
+        reply_message = 'hola-hola'
 
     if event.message.text == '/wc18 dev':
         reply_message = [
@@ -141,11 +141,10 @@ def handle_message(event):
                     data['away_team']['country'], data['away_team']['goals']
                 )
                 reply_message += tmp.center(44, ' ') + '\n\n'
-                reply_message = TextSendMessage(text=reply_message)
 
     line_bot_api.reply_message(
         event.reply_token,
-        reply_message)
+        TextSendMessage(text=event.source.user_id))
 
 
 if __name__ == "__main__":
