@@ -79,8 +79,13 @@ def handle_message(event):
             }
         headers = {
             'Content-type': 'application/json',
-            'Authorization': 'Bearer {}'.format(line_bot_api)}
-        res = requests.post(LINE_API, data=payload, headers=headers)
+            'Authorization': 'Bearer {}'.format(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', ''))}
+        
+        try:
+            res = requests.post(LINE_API, data=payload, headers=headers)
+            app.logger.info('status code %d', res.status_code)
+        except Exception as e:
+            app.logger.info('%s failed to post api', e)
 
 if __name__ == "__main__":
     app.run()
