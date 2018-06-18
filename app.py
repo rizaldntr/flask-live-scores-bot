@@ -70,7 +70,7 @@ def handle_message(event):
             tmp = flex_today_matches_builder(
                 data['home_team']['country'], data['away_team']['country'],
                 data['home_team']['goals'], data['away_team']['goals'],
-                time_str
+                time_str, data['home_team']['code'], data['away_team']['code']
             )
             messages.append(tmp)
         payload = {
