@@ -48,74 +48,80 @@ def handle_message(event):
             re.match(r'\/wc18\s.*', event.message.text) is None):
         return
 
-    reply_message = 'Mohon maaf perintah tidak dikenal'
+    reply_message = TextSendMessage(text="Mohon maaf perintah tidak dikenal")
 
     if event.message.text == '/wc18 help':
-        reply_message = 'hola-hola'
+        reply_message = TextSendMessage(text=reply_message)
 
     if event.message.text == '/wc18 dev':
-        reply_message = [{
-            "type": "bubble",
-            "body": {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                    {
-                        "type": "image",
-                        "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/02_1_news_thumbnail_1.png"
-                    },
-                    {
-                        "type": "text",
-                        "text": "1 - 2",
-                        "gravity": "center",
-                        "align": "center",
-                        "size": "xxl"
-                    },
-                    {
-                        "type": "image",
-                        "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/02_1_news_thumbnail_1.png"
-                    }
-                    ]
-                },
-                {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                    {
-                        "type": "text",
-                        "text": "Korea Republic",
-                        "gravity": "center",
-                        "align": "center",
-                        "size": "sm",
-                        "wrap": True
-                    },
-                    {
-                        "type": "text",
-                        "text": "Time: 75'",
-                        "gravity": "center",
-                        "align": "center",
-                        "size": "sm"
-                    },
-                    {
-                        "type": "text",
-                        "text": "Mexico",
-                        "gravity": "center",
-                        "align": "center",
-                        "size": "sm",
-                        "wrap": True
-                    }
-                    ]
-                },
-                {
-                    "type": "separator",
-                    "margin": "lg"
-                }]
+        reply_message = [
+            {
+                "type": "flex",
+                "altText": "This is a Flex Message",
+                "contents": {
+                    "type": "bubble",
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "contents": [
+                            {
+                                "type": "image",
+                                "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/02_1_news_thumbnail_1.png"
+                            },
+                            {
+                                "type": "text",
+                                "text": "1 - 2",
+                                "gravity": "center",
+                                "align": "center",
+                                "size": "xxl"
+                            },
+                            {
+                                "type": "image",
+                                "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/02_1_news_thumbnail_1.png"
+                            }
+                            ]
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "contents": [
+                            {
+                                "type": "text",
+                                "text": "Korea Republic",
+                                "gravity": "center",
+                                "align": "center",
+                                "size": "sm",
+                                "wrap": True
+                            },
+                            {
+                                "type": "text",
+                                "text": "Time: 75'",
+                                "gravity": "center",
+                                "align": "center",
+                                "size": "sm"
+                            },
+                            {
+                                "type": "text",
+                                "text": "Mexico",
+                                "gravity": "center",
+                                "align": "center",
+                                "size": "sm",
+                                "wrap": True
+                            }
+                            ]
+                        },
+                        {
+                            "type": "separator",
+                            "margin": "lg"
+                        }]
+                    }    
+                }
             }
-        }]
+        ]
 
     if event.message.text == '/wc18 today':
         todayURL = '{}{}'.format(BASE_URL, TODAY_MATCHES)
@@ -135,10 +141,11 @@ def handle_message(event):
                     data['away_team']['country'], data['away_team']['goals']
                 )
                 reply_message += tmp.center(44, ' ') + '\n\n'
+                reply_message = TextSendMessage(text=reply_message)
 
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=reply_message))
+        reply_message)
 
 
 if __name__ == "__main__":
