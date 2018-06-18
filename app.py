@@ -53,7 +53,7 @@ def handle_message(event):
     if event.message.text == '/wc18 help':
         reply_message = 'hola-hola'
 
-    if event.message.text == 'wc18 dev':
+    if event.message.text == '/wc18 dev':
         reply_message = {
             "type": "bubble",
             "body": {
