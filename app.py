@@ -82,8 +82,11 @@ def handle_message(event):
             'Authorization': 'Bearer {}'.format(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', ''))}
         
         try:
+            print (payload)
+            print (headers)
             res = requests.post(LINE_API, data=payload, headers=headers)
             print (res.status_code)
+            print (res.content)
             app.logger.info('status code %d', res.status_code)
         except Exception as e:
             app.logger.info('%s failed to post api', e)
