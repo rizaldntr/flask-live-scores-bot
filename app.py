@@ -86,6 +86,34 @@ def handle_message(event):
         except Exception as e:
             pass
 
+    if event.message.text == '/wc18 current':
+        currentURL = '{}{}'.format(BASE_URL, CURRENT_MATCH)
+        res = requests.get(currentURL)
+        data = json.loads(res.content)[0]
+
+        messages = flex_today_matches_builder(
+            data['home_team']['country'],
+            data['away_team']['country'],
+            data['home_team']['goals'],
+            data['away_team']['goals'],
+            None,
+            data['home_team']['code'],
+            data['away_team']['code']
+        )
+
+        payload = {
+            'replyToken': event.reply_token,
+            'messages': messages
+        }
+        headers = {
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer {}'.format(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', ''))}
+
+        try:
+            res = requests.post(LINE_API, json=payload, headers=headers)
+        except Exception as e:
+            pass
+
 
 if __name__ == "__main__":
     app.run()
