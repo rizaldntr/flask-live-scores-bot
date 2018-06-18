@@ -60,7 +60,6 @@ def handle_message(event):
         todayURL = '{}{}'.format(BASE_URL, TODAY_MATCHES)
         res = requests.get(todayURL)
         datas = json.loads(res.content)
-        print (datas)
         messages = []            
         for data in datas:
             if data['time'] is None:
@@ -84,6 +83,7 @@ def handle_message(event):
         
         try:
             res = requests.post(LINE_API, data=payload, headers=headers)
+            print (res.status_code)
             app.logger.info('status code %d', res.status_code)
         except Exception as e:
             app.logger.info('%s failed to post api', e)
