@@ -19,7 +19,7 @@ from utils import flex_today_matches_builder
 BASE_URL = 'https://world-cup-json.herokuapp.com/matches'
 TODAY_MATCHES = '/today'
 CURRENT_MATCH = '/current'
-LINE_API='https://api.line.me/v2/bot/message/push'
+LINE_API='https://api.line.me/v2/bot/message/reply'
 
 app = Flask(__name__)
 
