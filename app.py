@@ -84,7 +84,7 @@ def handle_message(event):
         try:
             print (payload)
             print (headers)
-            res = requests.post(LINE_API, data=payload, headers=headers)
+            res = requests.post(LINE_API, json=payload, headers=headers)
             print (res.status_code)
             print (res.content)
             app.logger.info('status code %d', res.status_code)
