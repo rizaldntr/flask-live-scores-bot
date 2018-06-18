@@ -82,7 +82,10 @@ def handle_message(event):
             'Authorization': 'Bearer {}'.format(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', ''))}
 
         try:
+            print(payload)
+            print(headers)
             res = requests.post(LINE_API, json=payload, headers=headers)
+            print (res.content)
         except Exception as e:
             pass
 
