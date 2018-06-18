@@ -74,7 +74,7 @@ def handle_message(event):
             )
             messages.append(tmp)
         payload = {
-            'to': event.reply_token,
+            'replyToken': event.reply_token,
             'messages': messages
             }
         headers = {
