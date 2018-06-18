@@ -19,7 +19,7 @@ from utils import flex_today_matches_builder
 BASE_URL = 'https://world-cup-json.herokuapp.com/matches'
 TODAY_MATCHES = '/today'
 CURRENT_MATCH = '/current'
-LINE_API='https://api.line.me/v2/bot/message/reply'
+LINE_API = 'https://api.line.me/v2/bot/message/reply'
 
 app = Flask(__name__)
 
@@ -60,7 +60,7 @@ def handle_message(event):
         todayURL = '{}{}'.format(BASE_URL, TODAY_MATCHES)
         res = requests.get(todayURL)
         datas = json.loads(res.content)
-        messages = []            
+        messages = []
         for data in datas:
             if data['time'] is None:
                 time = (int(data['datetime'][11:-7]) + 7) % 24
@@ -76,20 +76,16 @@ def handle_message(event):
         payload = {
             'replyToken': event.reply_token,
             'messages': messages
-            }
+        }
         headers = {
             'Content-type': 'application/json',
             'Authorization': 'Bearer {}'.format(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', ''))}
-        
+
         try:
-            print (payload)
-            print (headers)
             res = requests.post(LINE_API, json=payload, headers=headers)
-            print (res.status_code)
-            print (res.content)
-            app.logger.info('status code %d', res.status_code)
         except Exception as e:
-            app.logger.info('%s failed to post api', e)
+            pass
+
 
 if __name__ == "__main__":
     app.run()
