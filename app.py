@@ -53,6 +53,70 @@ def handle_message(event):
     if event.message.text == '/wc18 help':
         reply_message = 'hola-hola'
 
+    if event.message.text == 'wc18 dev':
+        reply_message = {
+            "type": "bubble",
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                    {
+                        "type": "image",
+                        "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/02_1_news_thumbnail_1.png"
+                    },
+                    {
+                        "type": "text",
+                        "text": "1 - 2",
+                        "gravity": "center",
+                        "align": "center",
+                        "size": "xxl"
+                    },
+                    {
+                        "type": "image",
+                        "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/02_1_news_thumbnail_1.png"
+                    }
+                    ]
+                },
+                {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "Korea Republic",
+                        "gravity": "center",
+                        "align": "center",
+                        "size": "sm",
+                        "wrap": True
+                    },
+                    {
+                        "type": "text",
+                        "text": "Time: 75'",
+                        "gravity": "center",
+                        "align": "center",
+                        "size": "sm"
+                    },
+                    {
+                        "type": "text",
+                        "text": "Mexico",
+                        "gravity": "center",
+                        "align": "center",
+                        "size": "sm",
+                        "wrap": True
+                    }
+                    ]
+                },
+                {
+                    "type": "separator",
+                    "margin": "lg"
+                }]
+            }
+        }
+
     if event.message.text == '/wc18 today':
         todayURL = '{}{}'.format(BASE_URL, TODAY_MATCHES)
         with urllib.request.urlopen(todayURL) as url:
