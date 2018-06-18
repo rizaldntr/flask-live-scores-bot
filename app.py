@@ -54,7 +54,7 @@ def handle_message(event):
         reply_message = 'hola-hola'
 
     if event.message.text == '/wc18 dev':
-        reply_message = {
+        reply_message = [{
             "type": "bubble",
             "body": {
                 "type": "box",
@@ -115,7 +115,7 @@ def handle_message(event):
                     "margin": "lg"
                 }]
             }
-        }
+        }]
 
     if event.message.text == '/wc18 today':
         todayURL = '{}{}'.format(BASE_URL, TODAY_MATCHES)
