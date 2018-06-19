@@ -13,7 +13,8 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
-
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from utils import flex_today_matches_builder
 
 BASE_URL = 'https://world-cup-json.herokuapp.com/matches'
@@ -22,9 +23,20 @@ CURRENT_MATCH = '/current'
 LINE_API = 'https://api.line.me/v2/bot/message/reply'
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI', '')
+
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', ''))
 handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET', ''))
+
+
+class LiveSubscribers(db.Model):
+    __tablename__ = 'live_subscribers'
+
+    id = db.Column(db.Integer, primary_key=True)
+    live_id = db.Column(db.String(128))
 
 
 @app.route("/callback", methods=['POST'])
@@ -85,6 +97,15 @@ def handle_message(event):
             res = requests.post(LINE_API, json=payload, headers=headers)
         except Exception as e:
             pass
+
+    if event.message.text == '/wc18 start live':
+        live_id = event.source.group_id
+        if live_id is None:
+            live_id = event.source.user_id
+
+        live = LiveSubscribers(live_id=live_id)
+        db.session.add(live)
+        db.session.commit()
 
 
 if __name__ == "__main__":
