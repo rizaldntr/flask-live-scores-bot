@@ -31,6 +31,7 @@ LINE_API = 'https://api.line.me/v2/bot/message/reply'
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', '')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -71,7 +72,7 @@ scheduler = BackgroundScheduler()
 scheduler.start()
 scheduler.add_job(
     func=push_message_live_stream,
-    trigger=AndTrigger([IntervalTrigger(seconds=30),
+    trigger=AndTrigger([IntervalTrigger(minutes=3),
                         CronTrigger(hour='12-21')]),
     id='push_message_live_stream',
     name='Push message when some events occured',
