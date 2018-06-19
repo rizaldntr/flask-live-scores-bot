@@ -23,7 +23,7 @@ CURRENT_MATCH = '/current'
 LINE_API = 'https://api.line.me/v2/bot/message/reply'
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI', '')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', '')
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
