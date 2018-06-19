@@ -36,7 +36,7 @@ class LiveSubscribers(db.Model):
     __tablename__ = 'live_subscribers'
 
     id = db.Column(db.Integer, primary_key=True)
-    live_id = db.Column(db.String(128))
+    live_id = db.Column(db.String(128), unique=True)
 
 
 @app.route("/callback", methods=['POST'])
@@ -91,7 +91,9 @@ def handle_message(event):
         }
         headers = {
             'Content-type': 'application/json',
-            'Authorization': 'Bearer {}'.format(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', ''))}
+            'Authorization': 'Bearer {}'.format(
+                os.getenv('LINE_CHANNEL_ACCESS_TOKEN', '')
+                )}
 
         try:
             res = requests.post(LINE_API, json=payload, headers=headers)
@@ -105,8 +107,25 @@ def handle_message(event):
             live_id = event.source.user_id
 
         live = LiveSubscribers(live_id=live_id)
-        db.session.add(live)
-        db.session.commit()
+
+        try:
+            db.session.add(live)
+            db.session.commit()
+        except Exception:
+            pass
+
+    if event.message.text == '/wc18 stop live':
+        try:
+            live_id = event.source.group_id
+        except Exception as e:
+            live_id = event.source.user_id
+
+        try:
+            db.session.query(LiveSubscribers).filter(
+                LiveSubscribers.live_id == live_id).delete()
+            db.session.commit()
+        except Exception:
+            pass
 
 
 if __name__ == "__main__":
