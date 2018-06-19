@@ -99,8 +99,9 @@ def handle_message(event):
             pass
 
     if event.message.text == '/wc18 start live':
-        live_id = event.source.group_id
-        if live_id is None:
+        try:
+            live_id = event.source.group_id
+        except Exception as e:
             live_id = event.source.user_id
 
         live = LiveSubscribers(live_id=live_id)
