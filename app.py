@@ -38,6 +38,35 @@ migrate = Migrate(app, db)
 line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', ''))
 handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET', ''))
 
+last_event_update_at = None
+index_home_events = 0
+index_away_events = 0
+
+
+def push_message_live_stream():
+    current_URL = '{}{}'.format(BASE_URL, CURRENT_MATCH)
+    res = requests.get(current_URL)
+    datas = json.loads(res.content)
+
+    if len(datas) == 0:
+        last_event_update_at = None
+        index_home_events = 0
+        index_away_events = 0
+        return
+
+    if last_event_update_at == datas['last_event_update_at']:
+        return
+
+    live_id = db.session.query(LiveSubscribers).all()
+    print(live_id)
+
+    if index_home_events != len(datas['home_team_events']):
+        line_bot_api.multicast(live_id, TextSendMessage(text='Hello World!'))
+
+    if index_away_events != len(datas['away_team_events']):
+        line_bot_api.multicast(live_id, TextSendMessage(text='Hello World!'))
+
+
 scheduler = BackgroundScheduler()
 scheduler.start()
 scheduler.add_job(
@@ -49,34 +78,6 @@ scheduler.add_job(
     replace_existing=True)
 # Shut down the scheduler when exiting the app
 atexit.register(lambda: scheduler.shutdown())
-
-last_event_update_at = None
-index_home_events = 0
-index_away_events = 0
-
-
-def push_message_live_stream():
-    current_URL = '{}{}'.format(BASE_URL, CURRENT_MATCH)
-    res = requests.get(current_URL)
-    datas = json.loads(res.content)
-    
-    if len(datas) == 0:
-        last_event_update_at = None
-        index_home_events = 0
-        index_away_events = 0
-        return
-    
-    if last_event_update_at == datas['last_event_update_at']:
-        return
-    
-    live_id = db.session.query(LiveSubscribers).all()
-    print(live_id)
-
-    if index_home_events != len(datas['home_team_events']):
-        line_bot_api.multicast(live_id, TextSendMessage(text='Hello World!'))
-
-    if index_away_events != len(datas['away_team_events']):
-        line_bot_api.multicast(live_id, TextSendMessage(text='Hello World!'))
 
 
 class LiveSubscribers(db.Model):
