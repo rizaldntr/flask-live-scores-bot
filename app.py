@@ -2,6 +2,7 @@ import os
 import re
 import requests
 import json
+import atexit
 from flask import Flask, request, abort
 
 from linebot import (
@@ -15,6 +16,12 @@ from linebot.models import (
 )
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.interval import IntervalTrigger
+from apscheduler.triggers.cron import CronTrigger
+from apscheduler.triggers.combining import AndTrigger
+
 from utils import flex_today_matches_builder
 
 BASE_URL = 'https://world-cup-json.herokuapp.com/matches'
@@ -30,6 +37,46 @@ migrate = Migrate(app, db)
 
 line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', ''))
 handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET', ''))
+
+scheduler = BackgroundScheduler()
+scheduler.start()
+scheduler.add_job(
+    func=push_message_live_stream,
+    trigger=AndTrigger([IntervalTrigger(seconds=30),
+                        CronTrigger(hour='12-21')]),
+    id='push_message_live_stream',
+    name='Push message when some events occured',
+    replace_existing=True)
+# Shut down the scheduler when exiting the app
+atexit.register(lambda: scheduler.shutdown())
+
+last_event_update_at = None
+index_home_events = 0
+index_away_events = 0
+
+
+def push_message_live_stream():
+    current_URL = '{}{}'.format(BASE_URL, CURRENT_MATCH)
+    res = requests.get(current_URL)
+    datas = json.loads(res.content)
+    
+    if len(datas) == 0:
+        last_event_update_at = None
+        index_home_events = 0
+        index_away_events = 0
+        return
+    
+    if last_event_update_at == datas['last_event_update_at']:
+        return
+    
+    live_id = db.session.query(LiveSubscribers).all()
+    print(live_id)
+
+    if index_home_events != len(datas['home_team_events']):
+        line_bot_api.multicast(live_id, TextSendMessage(text='Hello World!'))
+
+    if index_away_events != len(datas['away_team_events']):
+        line_bot_api.multicast(live_id, TextSendMessage(text='Hello World!'))
 
 
 class LiveSubscribers(db.Model):
@@ -93,7 +140,7 @@ def handle_message(event):
             'Content-type': 'application/json',
             'Authorization': 'Bearer {}'.format(
                 os.getenv('LINE_CHANNEL_ACCESS_TOKEN', '')
-                )}
+            )}
 
         try:
             res = requests.post(LINE_API, json=payload, headers=headers)
