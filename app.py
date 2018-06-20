@@ -17,7 +17,7 @@ from linebot.models import (
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.combining import AndTrigger
@@ -68,7 +68,7 @@ def push_message_live_stream():
         line_bot_api.multicast(live_id, TextSendMessage(text='Hello World!'))
 
 
-scheduler = BackgroundScheduler()
+scheduler = BlockingScheduler()
 scheduler.start()
 scheduler.add_job(
     func=push_message_live_stream,
