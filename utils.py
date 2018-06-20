@@ -1,5 +1,5 @@
 def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, time, home_code, away_code):
-    picture_image_uri='https://api.fifa.com/api/v1/picture/flags-fwc2018-2/'
+    picture_image_uri='https://api.fifa.com/api/v1/picture/flags-fwc2018-4/'
     return {
         "type": "flex",
         "altText": "WC18 - Today Matches",
