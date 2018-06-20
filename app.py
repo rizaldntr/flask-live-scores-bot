@@ -68,17 +68,17 @@ def push_message_live_stream():
         line_bot_api.multicast(live_id, TextSendMessage(text='Hello World!'))
 
 
-scheduler = BlockingScheduler()
-scheduler.start()
-scheduler.add_job(
-    func=push_message_live_stream,
-    trigger=AndTrigger([IntervalTrigger(minutes=3),
-                        CronTrigger(hour='12-21')]),
-    id='push_message_live_stream',
-    name='Push message when some events occured',
-    replace_existing=True)
-# Shut down the scheduler when exiting the app
-atexit.register(lambda: scheduler.shutdown())
+# scheduler = BlockingScheduler()
+# scheduler.start()
+# scheduler.add_job(
+#     func=push_message_live_stream,
+#     trigger=AndTrigger([IntervalTrigger(minutes=3),
+#                         CronTrigger(hour='12-21')]),
+#     id='push_message_live_stream',
+#     name='Push message when some events occured',
+#     replace_existing=True)
+# # Shut down the scheduler when exiting the app
+# atexit.register(lambda: scheduler.shutdown())
 
 
 class LiveSubscribers(db.Model):
