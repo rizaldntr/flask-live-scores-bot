@@ -48,7 +48,8 @@ class LiveSubscribers(db.Model):
 
 @app.route("/webhook", methods=['POST'])
 def webhook_to_push():
-    live_id = db.session.query(LiveSubscribers.id).all()
+    live = db.session.query(LiveSubscribers).all()
+    live_id = [x.live_id for x in live]
     print(live_id)
     message = request.get_json()['message']
     line_bot_api.multicast(live_id, TextSendMessage(text=message))
