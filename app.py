@@ -102,9 +102,15 @@ def handle_message(event):
             else:
                 time_str = 'Time: {}\''.format(data['time'])
             tmp = flex_today_matches_builder(
-                data['home_team']['country'], data['away_team']['country'],
-                data['home_team']['goals'], data['away_team']['goals'],
-                time_str, data['home_team']['code'], data['away_team']['code']
+                data['home_team']['country'],
+                data['away_team']['country'],
+                data['home_team']['goals'],
+                data['away_team']['goals'],
+                time_str,
+                data['home_team']['code'],
+                data['away_team']['code'],
+                data['home_team_events'],
+                data['away_team_events'],
             )
             messages.append(tmp)
         payload = {
@@ -143,7 +149,9 @@ def handle_message(event):
             data['away_team']['goals'],
             data['time'],
             data['home_team']['code'],
-            data['away_team']['code']
+            data['away_team']['code'],
+            data['home_team_events'],
+            data['away_team_events'],
         )]
 
         payload = {
