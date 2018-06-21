@@ -1,12 +1,14 @@
 def build_goal_by_content(home, away):
-    home_scored_by = {}
-    away_scored_by = {}
+    home_scored_by = []
+    away_scored_by = []
 
     for x in home:
         # TODO
-    
+        home_scored_by.append(x)
+
     for x in away:
         # TODO
+        away_scored_by.append(x)
 
     return home_scored_by, away_scored_by
 
