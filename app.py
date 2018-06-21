@@ -49,6 +49,7 @@ class LiveSubscribers(db.Model):
 @app.route("/webhook", methods=['POST'])
 def webhook_to_push():
     lives = db.session.query(LiveSubscribers).all()
+    print (lives)
     message = request.get_json()['message']
 
     for live in lives:
