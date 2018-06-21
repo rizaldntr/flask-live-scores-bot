@@ -89,14 +89,24 @@ def handle_message(event):
     if event.message.text == '/wc18 current':
         currentURL = '{}{}'.format(BASE_URL, CURRENT_MATCH)
         res = requests.get(currentURL)
-        data = json.loads(res.content)[0]
+        data = json.loads(res.content)
+
+        if len(data) == 0:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text='There is no current match.')
+            )
+            return
+        else:
+            data = data[0]
+
 
         messages = flex_today_matches_builder(
             data['home_team']['country'],
             data['away_team']['country'],
             data['home_team']['goals'],
             data['away_team']['goals'],
-            None,
+            data['time'],
             data['home_team']['code'],
             data['away_team']['code']
         )
