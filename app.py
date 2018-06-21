@@ -50,9 +50,13 @@ class LiveSubscribers(db.Model):
 def webhook_to_push():
     live = db.session.query(LiveSubscribers).all()
     live_id = [x.live_id for x in live]
-    print(live_id)
     message = request.get_json()['message']
-    line_bot_api.multicast(live_id, TextSendMessage(text=message))
+    try:
+        line_bot_api.multicast(live_id, TextSendMessage(text=message))
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+    except Exception as e:
+        return json.dumps({'success':False}), 500, {'ContentType':'application/json'} 
+
 
 @app.route("/callback", methods=['POST'])
 def callback():
