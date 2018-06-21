@@ -39,54 +39,27 @@ migrate = Migrate(app, db)
 line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', ''))
 handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET', ''))
 
-last_event_update_at = None
-index_home_events = 0
-index_away_events = 0
-
-
-def push_message_live_stream():
-    current_URL = '{}{}'.format(BASE_URL, CURRENT_MATCH)
-    res = requests.get(current_URL)
-    datas = json.loads(res.content)
-
-    if len(datas) == 0:
-        last_event_update_at = None
-        index_home_events = 0
-        index_away_events = 0
-        return
-
-    if last_event_update_at == datas['last_event_update_at']:
-        return
-
-    live_id = db.session.query(LiveSubscribers).all()
-    print(live_id)
-
-    if index_home_events != len(datas['home_team_events']):
-        line_bot_api.multicast(live_id, TextSendMessage(text='Hello World!'))
-
-    if index_away_events != len(datas['away_team_events']):
-        line_bot_api.multicast(live_id, TextSendMessage(text='Hello World!'))
-
-
-# scheduler = BlockingScheduler()
-# scheduler.start()
-# scheduler.add_job(
-#     func=push_message_live_stream,
-#     trigger=AndTrigger([IntervalTrigger(minutes=3),
-#                         CronTrigger(hour='12-21')]),
-#     id='push_message_live_stream',
-#     name='Push message when some events occured',
-#     replace_existing=True)
-# # Shut down the scheduler when exiting the app
-# atexit.register(lambda: scheduler.shutdown())
-
-
 class LiveSubscribers(db.Model):
     __tablename__ = 'live_subscribers'
 
     id = db.Column(db.Integer, primary_key=True)
     live_id = db.Column(db.String(128), unique=True)
 
+
+@app.route("/webhook", methods=['POST'])
+def webhook_to_push():
+    lives = db.session.query(LiveSubscribers).all()
+    message = request.get_json()['message']
+
+    for live in lives:
+        try:
+            line_bot_api.push_message(live.live_id, TextSendMessage(text=message))
+        except Exception:
+            return json.dumps({'success':False}), 500, {'ContentType':'application/json'} 
+
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+    
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -163,8 +136,7 @@ def handle_message(event):
         else:
             data = data[0]
 
-
-        messages = flex_today_matches_builder(
+        messages = [flex_today_matches_builder(
             data['home_team']['country'],
             data['away_team']['country'],
             data['home_team']['goals'],
@@ -172,7 +144,7 @@ def handle_message(event):
             data['time'],
             data['home_team']['code'],
             data['away_team']['code']
-        )
+        )]
 
         payload = {
             'replyToken': event.reply_token,
