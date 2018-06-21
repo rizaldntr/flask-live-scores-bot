@@ -31,7 +31,7 @@ def build_goal_by_content(home_team_events, away_team_events):
                 "type": "text",
                 "text": scorer + ' ' + time,
                 "gravity": "center",
-                "align": "righht",
+                "align": "right",
                 "size": "sm",
                 "wrap": True
             }
