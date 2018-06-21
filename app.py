@@ -55,6 +55,7 @@ def webhook_to_push():
         line_bot_api.multicast(live_id, TextSendMessage(text=message))
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
     except Exception as e:
+        print (e)
         return json.dumps({'success':False}), 500, {'ContentType':'application/json'} 
 
 
