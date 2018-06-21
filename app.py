@@ -163,8 +163,7 @@ def handle_message(event):
         else:
             data = data[0]
 
-
-        messages = flex_today_matches_builder(
+        messages = [flex_today_matches_builder(
             data['home_team']['country'],
             data['away_team']['country'],
             data['home_team']['goals'],
@@ -172,7 +171,7 @@ def handle_message(event):
             data['time'],
             data['home_team']['code'],
             data['away_team']['code']
-        )
+        )]
 
         payload = {
             'replyToken': event.reply_token,
