@@ -1,19 +1,49 @@
-def build_goal_by_content(home, away):
-    home_scored_by = []
-    away_scored_by = []
+def build_goal_by_content(home_team_events, away_team_events):
+    home_scorer = []
+    away_scorer = []
 
-    for x in home:
-        # TODO
-        home_scored_by.append(x)
+    for data in home_team_events:
+        if data['type_of_event'] == 'goal':
+            
+            scorer = data['type_of_event']['player']
+            scorer = scorer.split(' ')[-1]
+            time = data['type_of_event']['time']
 
-    for x in away:
-        # TODO
-        away_scored_by.append(x)
+            temp = {
+                "type": "text",
+                "text": scorer + ' ' + time,
+                "gravity": "center",
+                "align": "left",
+                "size": "sm",
+                "wrap": True
+            }
 
-    return home_scored_by, away_scored_by
+            home_scorer.append(temp)
 
-def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, time, home_code, away_code):
+    for data in away_team_events:
+        if data['type_of_event'] == 'goal':
+            
+            scorer = data['type_of_event']['player']
+            scorer = scorer.split(' ')[-1]
+            time = data['type_of_event']['time']
+
+            temp = {
+                "type": "text",
+                "text": scorer + ' ' + time,
+                "gravity": "center",
+                "align": "righht",
+                "size": "sm",
+                "wrap": True
+            }
+
+            away_scorer.append(temp)
+
+    return home_scorer, away_scorer
+
+def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, time, home_code, away_code, home_team_events, away_team_events):
     picture_image_uri='https://api.fifa.com/api/v1/picture/flags-fwc2018-4/'
+    home_scorer, away_scorer = build_goal_by_content(home_team_events, away_team_events)
+    
     return {
         "type": "flex",
         "altText": "WC18 - Today Matches",
@@ -84,12 +114,12 @@ def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, tim
                             {
                                 "type": "box",
                                 "layout": "vertical",
-                                "contents": None #TODO: home goalie
+                                "contents": home_scorer
                             },
                             {
                                 "type": "box",
                                 "layout": "vertical",
-                                "contents": None #TODO: away goalie
+                                "contents": away_scorer
                             }
                         ]
                     }
