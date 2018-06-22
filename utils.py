@@ -2,18 +2,6 @@ def build_goal_by_content(home_team_events, away_team_events):
     home_scorer = []
     away_scorer = []
 
-    temp = {
-        "type": "text",
-        "text": "Goal(s):",
-        "gravity": "center",
-        "align": "start",
-        "size": "sm",
-        "wrap": True
-    }
-
-    home_scorer.append(temp)
-    away_scorer.append(temp)
-
     for data in home_team_events:
         if data['type_of_event'] == 'goal':
             
@@ -23,8 +11,8 @@ def build_goal_by_content(home_team_events, away_team_events):
 
             temp = {
                 "type": "text",
-                "text": scorer + ' ' + time,
-                "gravity": "bottom",
+                "text": ' ' + time + ' ' + scorer,
+                "gravity": "center",
                 "align": "start",
                 "size": "sm",
                 "wrap": True
@@ -41,14 +29,38 @@ def build_goal_by_content(home_team_events, away_team_events):
 
             temp = {
                 "type": "text",
-                "text": scorer + ' ' + time,
+                "text": scorer + ' ' + time + ' ',
                 "gravity": "center",
-                "align": "start",
+                "align": "end",
                 "size": "sm",
                 "wrap": True
             }
 
             away_scorer.append(temp)
+    
+    if len(home_scorer) == 0:
+            temp = {
+            "type": "text",
+            "text": "-",
+            "gravity": "center",
+            "align": "center",
+            "size": "md",
+            "wrap": True
+        }
+
+        home_scorer.append(temp)
+
+    if len(away_scorer) == 0:
+            temp = {
+            "type": "text",
+            "text": "-",
+            "gravity": "center",
+            "align": "center",
+            "size": "md",
+            "wrap": True
+        }
+
+        away_scorer.append(temp)
 
     return home_scorer, away_scorer
 
@@ -126,13 +138,13 @@ def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, tim
                             {
                                 "type": "box",
                                 "layout": "vertical",
-                                "spacing": "sm",
+                                "spacing": "md",
                                 "contents": home_scorer
                             },
                             {
                                 "type": "box",
                                 "layout": "vertical",
-                                "spacing": "sm",
+                                "spacing": "md",
                                 "contents": away_scorer
                             }
                         ]
