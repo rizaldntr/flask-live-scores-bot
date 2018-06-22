@@ -5,9 +5,9 @@ def build_goal_by_content(home_team_events, away_team_events):
     for data in home_team_events:
         if data['type_of_event'] == 'goal':
 
-            scorer = data['type_of_event']['player']
+            scorer = data['player']
             scorer = scorer.split(' ')[-1]
-            time = data['type_of_event']['time']
+            time = data['time']
 
             temp = {
                 "type": "text",
@@ -23,9 +23,9 @@ def build_goal_by_content(home_team_events, away_team_events):
     for data in away_team_events:
         if data['type_of_event'] == 'goal':
 
-            scorer = data['type_of_event']['player']
+            scorer = data['player']
             scorer = scorer.split(' ')[-1]
-            time = data['type_of_event']['time']
+            time = data['time']
 
             temp = {
                 "type": "text",
