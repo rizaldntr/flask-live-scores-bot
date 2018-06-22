@@ -57,7 +57,8 @@ def webhook_to_push():
     for live in lives:
         try:
             line_bot_api.push_message(live.live_id, TextSendMessage(text=message))
-        except Exception:
+        except Exception as e:
+            app.logger.error("Error: " + e)
             return json.dumps({'success':False}), 500, {'ContentType':'application/json'} 
 
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
