@@ -87,8 +87,8 @@ def handle_message(event):
 
     if event.message.text == '/wc18 help':
         msg = """
-            Format '/wc18 <command>'
-            Available commands:
+            Format : '/wc18 <command>'
+            Available commands :
             today -> display today's matches.
             current -> display current match.
             start live -> start live score notification
@@ -96,7 +96,7 @@ def handle_message(event):
         """
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text='Halo'))
+            TextSendMessage(text=msg))
 
     if event.message.text == '/wc18 today':
         todayURL = '{}{}'.format(BASE_URL, TODAY_MATCHES)
