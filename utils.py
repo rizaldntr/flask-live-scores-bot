@@ -4,9 +4,9 @@ def build_goal_by_content(home_team_events, away_team_events):
 
     temp = {
         "type": "text",
-        "text": 'TEST MUNCUL',
+        "text": " ",
         "gravity": "center",
-        "align": "left",
+        "align": "center",
         "size": "sm",
         "wrap": True
     }
@@ -25,7 +25,7 @@ def build_goal_by_content(home_team_events, away_team_events):
                 "type": "text",
                 "text": scorer + ' ' + time,
                 "gravity": "center",
-                "align": "left",
+                "align": "center",
                 "size": "sm",
                 "wrap": True
             }
@@ -43,7 +43,7 @@ def build_goal_by_content(home_team_events, away_team_events):
                 "type": "text",
                 "text": scorer + ' ' + time,
                 "gravity": "center",
-                "align": "right",
+                "align": "center",
                 "size": "sm",
                 "wrap": True
             }
@@ -126,30 +126,12 @@ def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, tim
                             {
                                 "type": "box",
                                 "layout": "vertical",
-                                "contents": [
-                                    {
-                                        "type": "text",
-                                        "text": "TEST MUNCUL",
-                                        "gravity": "center",
-                                        "align": "center",
-                                        "size": "sm",
-                                        "wrap": True
-                                    }
-                                ]
+                                "contents": home_scorer
                             },
                             {
                                 "type": "box",
                                 "layout": "vertical",
-                                "contents": [
-                                    {
-                                        "type": "text",
-                                        "text": "TEST MUNCUL",
-                                        "gravity": "center",
-                                        "align": "center",
-                                        "size": "sm",
-                                        "wrap": True
-                                    }
-                                ]
+                                "contents": away_scorer
                             }
                         ]
                     }
