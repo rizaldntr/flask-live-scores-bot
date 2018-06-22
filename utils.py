@@ -6,7 +6,7 @@ def build_goal_by_content(home_team_events, away_team_events):
         "type": "text",
         "text": "Goal(s):",
         "gravity": "center",
-        "align": "center",
+        "align": "start",
         "size": "sm",
         "wrap": True
     }
@@ -24,8 +24,8 @@ def build_goal_by_content(home_team_events, away_team_events):
             temp = {
                 "type": "text",
                 "text": scorer + ' ' + time,
-                "gravity": "center",
-                "align": "center",
+                "gravity": "bottom",
+                "align": "start",
                 "size": "sm",
                 "wrap": True
             }
@@ -43,7 +43,7 @@ def build_goal_by_content(home_team_events, away_team_events):
                 "type": "text",
                 "text": scorer + ' ' + time,
                 "gravity": "center",
-                "align": "center",
+                "align": "start",
                 "size": "sm",
                 "wrap": True
             }
