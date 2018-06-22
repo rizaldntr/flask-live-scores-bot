@@ -22,7 +22,10 @@ from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.combining import AndTrigger
 
-from utils import flex_today_matches_builder
+from utils import (
+    flex_today_matches_builder,
+    flex_help_message_builder,
+)
 
 BASE_URL = 'https://world-cup-json.herokuapp.com/matches'
 TODAY_MATCHES = '/today'
@@ -86,10 +89,21 @@ def handle_message(event):
         return
 
     if event.message.text == '/wc18 help':
-        msg = "Format: '/wc18 <command>'\n\ntoday -> display today's matches.\n\ncurrent -> display current match.\n\nstart live -> start live score notification\n\nstop live -> stop live score notification"
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=msg))
+        messages = flex_help_message_builder()
+
+        payload = {
+            'replyToken': event.reply_token,
+            'messages': messages
+        }
+        headers = {
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer {}'.format(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', ''))
+        }
+
+        try:
+            res = requests.post(LINE_API, json=payload, headers=headers)
+        except Exception as e:
+            pass
 
     if event.message.text == '/wc18 today':
         todayURL = '{}{}'.format(BASE_URL, TODAY_MATCHES)
@@ -122,7 +136,8 @@ def handle_message(event):
             'Content-type': 'application/json',
             'Authorization': 'Bearer {}'.format(
                 os.getenv('LINE_CHANNEL_ACCESS_TOKEN', '')
-            )}
+            )
+        }
 
         try:
             res = requests.post(LINE_API, json=payload, headers=headers)
@@ -161,7 +176,10 @@ def handle_message(event):
         }
         headers = {
             'Content-type': 'application/json',
-            'Authorization': 'Bearer {}'.format(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', ''))}
+            'Authorization': 'Bearer {}'.format(
+                os.getenv('LINE_CHANNEL_ACCESS_TOKEN', '')
+            )
+        }
 
         try:
             res = requests.post(LINE_API, json=payload, headers=headers)
