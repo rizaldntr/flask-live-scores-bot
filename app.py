@@ -97,7 +97,9 @@ def handle_message(event):
         }
         headers = {
             'Content-type': 'application/json',
-            'Authorization': 'Bearer {}'.format(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', ''))
+            'Authorization': 'Bearer {}'.format(
+                os.getenv('LINE_CHANNEL_ACCESS_TOKEN', '')
+            )
         }
 
         try:
