@@ -149,127 +149,133 @@ def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, tim
 
 def flex_help_message_builder():
     flex_msg = {
-        "type": "bubble",
-        "styles": {
-            "footer": {
-            "separator": True
-            }
-        },
-        "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-                {
-                    "type": "text",
-                    "text": "COMMAND FORMAT",
-                    "weight": "bold",
-                    "color": "#1DB446",
-                    "size": "sm"
+    "type": "flex",
+        "altText": "WC18 - Command Help",
+        "contents": {
+            {
+                "type": "bubble",
+                "styles": {
+                    "footer": {
+                    "separator": True
+                    }
                 },
-                {
-                    "type": "text",
-                    "text": "/wc18<space><command>",
-                    "weight": "bold",
-                    "size": "md",
-                    "margin": "md"
-                },
-                {
-                    "type": "separator",
-                    "margin": "xxl"
-                },
-                {
+                "body": {
                     "type": "box",
                     "layout": "vertical",
-                    "margin": "xxl",
-                    "spacing": "sm",
                     "contents": [
                         {
-                            "type": "box",
-                            "layout": "horizontal",
-                            "contents": [
-                                {
-                                    "type": "text",
-                                    "text": "today",
-                                    "weight": "bold",
-                                    "size": "sm",
-                                    "color": "#555555",
-                                    "flex": 0
-                                },
-                                {
-                                    "type": "text",
-                                    "text": "display today's matches",
-                                    "size": "sm",
-                                    "color": "#111111",
-                                    "align": "end"
-                                }
-                            ]
+                            "type": "text",
+                            "text": "COMMAND FORMAT",
+                            "weight": "bold",
+                            "color": "#1DB446",
+                            "size": "sm"
+                        },
+                        {
+                            "type": "text",
+                            "text": "/wc18<space><command>",
+                            "weight": "bold",
+                            "size": "md",
+                            "margin": "md"
+                        },
+                        {
+                            "type": "separator",
+                            "margin": "xxl"
                         },
                         {
                             "type": "box",
-                            "layout": "horizontal",
+                            "layout": "vertical",
+                            "margin": "xxl",
+                            "spacing": "sm",
                             "contents": [
                                 {
-                                    "type": "text",
-                                    "text": "current",
-                                    "weight": "bold",
-                                    "size": "sm",
-                                    "color": "#555555",
-                                    "flex": 0
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "today",
+                                            "weight": "bold",
+                                            "size": "sm",
+                                            "color": "#555555",
+                                            "flex": 0
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": "display today's matches",
+                                            "size": "sm",
+                                            "color": "#111111",
+                                            "align": "end"
+                                        }
+                                    ]
                                 },
                                 {
-                                    "type": "text",
-                                    "text": "display current match",
-                                    "size": "sm",
-                                    "color": "#111111",
-                                    "align": "end"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "horizontal",
-                            "contents": [
-                                {
-                                    "type": "text",
-                                    "text": "start live",
-                                    "weight": "bold",
-                                    "size": "sm",
-                                    "color": "#555555",
-                                    "flex": 0
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "current",
+                                            "weight": "bold",
+                                            "size": "sm",
+                                            "color": "#555555",
+                                            "flex": 0
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": "display current match",
+                                            "size": "sm",
+                                            "color": "#111111",
+                                            "align": "end"
+                                        }
+                                    ]
                                 },
                                 {
-                                    "type": "text",
-                                    "text": "start live score notification",
-                                    "size": "sm",
-                                    "color": "#111111",
-                                    "align": "end"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "horizontal",
-                            "contents": [
-                                {
-                                    "type": "text",
-                                    "text": "stop live",
-                                    "weight": "bold",
-                                    "size": "sm",
-                                    "color": "#555555",
-                                    "flex": 0
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "start live",
+                                            "weight": "bold",
+                                            "size": "sm",
+                                            "color": "#555555",
+                                            "flex": 0
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": "start live score notification",
+                                            "size": "sm",
+                                            "color": "#111111",
+                                            "align": "end"
+                                        }
+                                    ]
                                 },
                                 {
-                                    "type": "text",
-                                    "text": "stop live score notification",
-                                    "size": "sm",
-                                    "color": "#111111",
-                                    "align": "end"
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "stop live",
+                                            "weight": "bold",
+                                            "size": "sm",
+                                            "color": "#555555",
+                                            "flex": 0
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": "stop live score notification",
+                                            "size": "sm",
+                                            "color": "#111111",
+                                            "align": "end"
+                                        }
+                                    ]
                                 }
                             ]
                         }
                     ]
                 }
-            ]
+            }
         }
     }
 
