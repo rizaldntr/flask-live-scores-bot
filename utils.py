@@ -4,6 +4,18 @@ def build_goal_by_content(home_team_events, away_team_events):
 
     temp = {
         "type": "text",
+        "text": " ",
+        "gravity": "center",
+        "align": "center",
+        "size": "sm",
+        "wrap": True
+    }
+
+    home_scorer.append(temp)
+    away_scorer.append(temp)
+
+    temp = {
+        "type": "text",
         "text": "Goal(s):",
         "gravity": "center",
         "align": "center",
