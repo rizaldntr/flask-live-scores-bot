@@ -131,7 +131,7 @@ def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, tim
                                         "type": "text",
                                         "text": "TEST MUNCUL",
                                         "gravity": "center",
-                                        "align": "left",
+                                        "align": "center",
                                         "size": "sm",
                                         "wrap": True
                                     }
@@ -145,7 +145,7 @@ def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, tim
                                         "type": "text",
                                         "text": "TEST MUNCUL",
                                         "gravity": "center",
-                                        "align": "right",
+                                        "align": "center",
                                         "size": "sm",
                                         "wrap": True
                                     }
