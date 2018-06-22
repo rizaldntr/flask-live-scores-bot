@@ -89,7 +89,7 @@ def handle_message(event):
         return
 
     if event.message.text == '/wc18 help':
-        messages = flex_help_message_builder()
+        messages = [flex_help_message_builder()]
 
         payload = {
             'replyToken': event.reply_token,
