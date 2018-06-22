@@ -147,16 +147,11 @@ def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, tim
     }
 
 def flex_help_message_builder():
-    flex_msg = {
+    return {
         "type": "flex",
         "altText": "WC18 - Command Help",
         "contents": {
             "type": "bubble",
-            "styles": {
-                "footer": {
-                "separator": True
-                }
-            },
             "body": {
                 "type": "box",
                 "layout": "vertical",
@@ -275,5 +270,3 @@ def flex_help_message_builder():
             }
         }
     }
-
-    return flex_msg
