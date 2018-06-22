@@ -119,22 +119,40 @@ def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, tim
                         "type": "separator",
                         "margin": "lg"
                     },
-                    # {
-                    #     "type": "box",
-                    #     "layout": "horizontal",
-                    #     "contents": [
-                    #         {
-                    #             "type": "box",
-                    #             "layout": "vertical",
-                    #             "contents": home_scorer
-                    #         },
-                    #         {
-                    #             "type": "box",
-                    #             "layout": "vertical",
-                    #             "contents": away_scorer
-                    #         }
-                    #     ]
-                    # }
+                    {
+                        "type": "box",
+                        "layout": "horizontal",
+                        "contents": [
+                            {
+                                "type": "box",
+                                "layout": "vertical",
+                                "contents": [
+                                    {
+                                        "type": "text",
+                                        "text": "TEST MUNCUL",
+                                        "gravity": "center",
+                                        "align": "left",
+                                        "size": "sm",
+                                        "wrap": True
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "box",
+                                "layout": "vertical",
+                                "contents": [
+                                    {
+                                        "type": "text",
+                                        "text": "TEST MUNCUL",
+                                        "gravity": "center",
+                                        "align": "right",
+                                        "size": "sm",
+                                        "wrap": True
+                                    }
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         }
