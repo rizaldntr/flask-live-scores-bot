@@ -4,7 +4,6 @@ def build_goal_by_content(home_team_events, away_team_events):
 
     temp = {
         "type": "text",
-        "spacing": "md",
         "text": "Goal(s):",
         "gravity": "center",
         "align": "center",
@@ -24,7 +23,6 @@ def build_goal_by_content(home_team_events, away_team_events):
 
             temp = {
                 "type": "text",
-                "spacing": "sm",
                 "text": scorer + ' ' + time,
                 "gravity": "center",
                 "align": "center",
@@ -43,7 +41,6 @@ def build_goal_by_content(home_team_events, away_team_events):
 
             temp = {
                 "type": "text",
-                "spacing": "sm",
                 "text": scorer + ' ' + time,
                 "gravity": "center",
                 "align": "center",
@@ -129,11 +126,13 @@ def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, tim
                             {
                                 "type": "box",
                                 "layout": "vertical",
+                                "spacing": "sm",
                                 "contents": home_scorer
                             },
                             {
                                 "type": "box",
                                 "layout": "vertical",
+                                "spacing": "sm",
                                 "contents": away_scorer
                             }
                         ]
