@@ -2,6 +2,18 @@ def build_goal_by_content(home_team_events, away_team_events):
     home_scorer = []
     away_scorer = []
 
+    temp = {
+        "type": "text",
+        "text": 'TEST MUNCUL',
+        "gravity": "center",
+        "align": "left",
+        "size": "sm",
+        "wrap": True
+    }
+
+    home_scorer.append(temp)
+    away_scorer.append(temp)
+
     for data in home_team_events:
         if data['type_of_event'] == 'goal':
             
