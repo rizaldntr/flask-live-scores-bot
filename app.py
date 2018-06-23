@@ -156,9 +156,7 @@ def handle_message(event):
         group_letter = event.message.text[-1]
         data = data[0]
 
-        messages = [flex_group_result_builder(
-            group_letter
-        )]
+        messages = [flex_help_message_builder()]
 
         payload = {
             'replyToken': event.reply_token,
