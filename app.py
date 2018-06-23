@@ -154,13 +154,19 @@ def handle_message(event):
         res = requests.get(group_resultsURL)
         data = json.loads(res.content)
         group_letter = event.message.text[-1]
-        
-        line_bot_api.reply_message(
+
+        if len(data) == 0 :
+            line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text="Masuk santuy")
             )
+            return
+        else:
+            data=data[0]
 
-        return
+        messages = [flex_group_result_builder(
+            data['letter']
+            )]
 
         # if len(data) == 0:
         #     line_bot_api.reply_message(
@@ -173,21 +179,21 @@ def handle_message(event):
 
         # messages = [flex_group_result_builder(group_letter)]
 
-        # payload = {
-        #     'replyToken': event.reply_token,
-        #     'messages': messages
-        # }
-        # headers = {
-        #     'Content-type': 'application/json',
-        #     'Authorization': 'Bearer {}'.format(
-        #         os.getenv('LINE_CHANNEL_ACCESS_TOKEN', '')
-        #     )
-        # }
+        payload = {
+            'replyToken': event.reply_token,
+            'messages': messages
+        }
+        headers = {
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer {}'.format(
+                os.getenv('LINE_CHANNEL_ACCESS_TOKEN', '')
+            )
+        }
 
-        # try:
-        #     res = requests.post(LINE_API, json=payload, headers=headers)
-        # except Exception as e:
-        #     pass
+        try:
+            res = requests.post(LINE_API, json=payload, headers=headers)
+        except Exception as e:
+            pass
 
     if event.message.text == '/wc18 current':
         currentURL = '{}{}'.format(BASE_URL, CURRENT_MATCH)
