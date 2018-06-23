@@ -81,12 +81,18 @@ def felx_group_result_builder(country):
             "type": "box",
             "layout": "vertical",
             "contents": [
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                    "type": "text",
-                    "text": "{} , {} , {} , {}".format(country)
-                ]
+                {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                        {
+                            "type": "text",
+                            "text": "{} , {} , {} , {}".format(country)
+                        
+                        }
+                    ]
+                }
+                
             ]
         }
 
