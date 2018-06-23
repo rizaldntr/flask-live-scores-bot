@@ -171,6 +171,11 @@ def handle_message(event):
             )
         }
 
+        try:
+            res = requests.post(LINE_API, json=payload, headers=headers)
+        except Exception as e:
+            pass
+
     if event.message.text == '/wc18 current':
         currentURL = '{}{}'.format(BASE_URL, CURRENT_MATCH)
         res = requests.get(currentURL)
