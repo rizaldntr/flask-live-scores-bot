@@ -155,6 +155,11 @@ def handle_message(event):
         data = json.loads(res.content)
         group_letter = event.message.text[-1]
 
+        line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text='Masuk santuy')
+            )
+
         if len(data) == 0:
             line_bot_api.reply_message(
                 event.reply_token,
