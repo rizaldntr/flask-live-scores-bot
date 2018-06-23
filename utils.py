@@ -202,6 +202,7 @@ def flex_group_result_builder(group):
                 ]
             }
         }
+    }
 
 def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, time, home_code, away_code, home_team_events, away_team_events):
     picture_image_uri='https://api.fifa.com/api/v1/picture/flags-fwc2018-4/'
