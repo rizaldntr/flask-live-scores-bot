@@ -71,7 +71,8 @@ def build_goal_by_content(home_team_events, away_team_events):
 
     return home_scorer, away_scorer
 
-def flex_group_result_builder(country):
+def flex_group_result_builder(letter):
+    country = build_group_result(letter)
     return {
         "type": "flex",
         "altText": "WC18 - Group Result",
