@@ -7,6 +7,13 @@ def build_group_result(letter):
     game_played = []
     goal_differential = []
 
+    for data in letter:
+        if data['type_of_event'] == 'country' :
+            
+            country.append(country)
+
+    return country
+
 def build_goal_by_content(home_team_events, away_team_events):
     home_scorer = []
     away_scorer = []
