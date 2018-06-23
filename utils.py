@@ -1,16 +1,24 @@
-def build_group_result(letter):
+def build_group_result(group):
     country = []
-    points = []
-    wins = []
-    draws = []
-    losses = []
-    game_played = []
-    goal_differential = []
+    # points = []
+    # wins = []
+    # draws = []
+    # losses = []
+    # game_played = []
+    # goal_differential = []
 
     for data in letter:
-        if data['type_of_event'] == 'country' :
-            
-            country.append(country)
+        if data['letter'] == group :
+
+            temp = {
+                "type": "text",
+                "text": data['teams'],
+                "gravity": "center",
+                "align": "start",
+                "size": "sm",
+                "wrap": True
+            }
+        country.append(temp)
 
     return country
 
@@ -71,8 +79,8 @@ def build_goal_by_content(home_team_events, away_team_events):
 
     return home_scorer, away_scorer
 
-def flex_group_result_builder(letter):
-    country = build_group_result(letter)
+def flex_group_result_builder(group):
+    country = build_group_result(group)
     return {
       "type": "bubble",
       "styles": {
