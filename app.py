@@ -158,7 +158,7 @@ def handle_message(event):
         if len(data) == 0 :
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text="Masuk santuy dan data == 0")
+                TextSendMessage(text="Masuk if == 0")
             )
             return
         else:
