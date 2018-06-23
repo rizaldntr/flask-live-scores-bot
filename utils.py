@@ -1,5 +1,5 @@
-def build_group_result(group, country, points):
-    country = []
+def build_group_result(group):
+    countries = []
     # points = []
     # wins = []
     # draws = []
@@ -20,7 +20,7 @@ def build_group_result(group, country, points):
             }
         country.append(temp)
 
-    return country
+    return countries
 
 def build_goal_by_content(home_team_events, away_team_events):
     home_scorer = []
@@ -79,8 +79,8 @@ def build_goal_by_content(home_team_events, away_team_events):
 
     return home_scorer, away_scorer
 
-def flex_group_result_builder(group, country, points):
-    country = build_group_result(group, country, points)
+def flex_group_result_builder(group):
+    countries = build_group_result(group)
     return {
         "type": "flex",
         "altText": "WC18 - Today Matches",
@@ -94,7 +94,7 @@ def flex_group_result_builder(group, country, points):
                         "type": "box",
                         "layout": "horizontal",
                         "contents": [
-                            country
+                            countries
                         ]
                     }
                 ]
