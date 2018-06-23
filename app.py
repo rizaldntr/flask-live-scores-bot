@@ -30,6 +30,7 @@ from utils import (
 BASE_URL = 'https://world-cup-json.herokuapp.com/matches'
 TODAY_MATCHES = '/today'
 CURRENT_MATCH = '/current'
+GROUP_RESULT_HARDCODE = 'https://worldcup.sfg.io/teams/group_results'
 LINE_API = 'https://api.line.me/v2/bot/message/reply'
 
 app = Flask(__name__)
