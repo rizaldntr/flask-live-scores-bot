@@ -154,10 +154,11 @@ def handle_message(event):
         res = requests.get(group_resultsURL)
         data = json.loads(res.content)
         group_letter = event.message.text[-1]
-
+        masukan = "Masuk santuy"
+        panjang_data = len(data)
         line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text='Masuk santuy ' + len(data))
+                TextSendMessage(text=masukan + panjang_data)
             )
 
         return
