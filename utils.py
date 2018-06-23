@@ -73,28 +73,28 @@ def build_goal_by_content(home_team_events, away_team_events):
 
 def flex_group_result_builder(country):
     return {
-    "type": "flex",
-    "altText": "WC18 - Group Result",
-    "contents": {
-        "type": "bubble",
-        "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-                {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                        {
-                            "type": "text",
-                            "text": "{} , {} , {} , {}".format(country)
-                        
-                        }
-                    ]
-                }
-                
-            ]
-        }
+        "type": "flex",
+        "altText": "WC18 - Group Result",
+        "contents": {
+            "type": "bubble",
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "box",
+                        "layout": "horizontal",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "text": "{} , {} , {} , {}".format(country)
+                            
+                            }
+                        ]
+                    }
+                    
+                ]
+            }
 
         }
     }
