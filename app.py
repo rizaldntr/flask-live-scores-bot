@@ -44,6 +44,7 @@ migrate = Migrate(app, db)
 line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', ''))
 handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET', ''))
 
+
 class LiveSubscribers(db.Model):
     __tablename__ = 'live_subscribers'
 
@@ -58,14 +59,13 @@ def webhook_to_push():
 
     for live in lives:
         try:
-            line_bot_api.push_message(live.live_id, TextSendMessage(text=message))
-        except Exception as e:
-            app.logger.error("Error: " + e)
-            return json.dumps({'success':False}), 500, {'ContentType':'application/json'} 
+            line_bot_api.push_message(
+                live.live_id, TextSendMessage(text=message))
+        except Exception:
+            return json.dumps({'success': False}), 500, {'ContentType': 'application/json'}
 
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
-    
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -242,6 +242,17 @@ def handle_message(event):
             db.session.commit()
         except Exception:
             pass
+
+    if event.message.text == '/wc18 dev - print my id':
+        try:
+            id = event.source.group_id
+        except Exception as e:
+            id = event.source.user_id
+
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=id)
+        )
 
 
 if __name__ == "__main__":
