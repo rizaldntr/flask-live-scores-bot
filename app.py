@@ -158,7 +158,7 @@ def handle_message(event):
         panjang_data = len(data)
         line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=masukan + panjang_data)
+                TextSendMessage(text=masukan)
             )
 
         return
