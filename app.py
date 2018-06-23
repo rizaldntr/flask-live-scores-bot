@@ -154,7 +154,15 @@ def handle_message(event):
         res = requests.get(group_resultsURL)
         data = json.loads(res.content)
         group_letter = event.message.text[-1]
-        data = data[0]
+
+        if len(data) == 0:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text='Data santuy kosong.')
+            )
+            return
+        else:
+            data = data[0]
 
         messages = [flex_group_result_builder(group_letter)]
 
