@@ -71,6 +71,28 @@ def build_goal_by_content(home_team_events, away_team_events):
 
     return home_scorer, away_scorer
 
+def felx_group_result_builder(country):
+    return {
+    "type": "flex",
+    "altText": "WC18 - Group Result",
+    "contents": {
+        "type": "bubble",
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                    "type": "text",
+                    "text": "{} , {} , {} , {}".format(country)
+                ]
+            ]
+        }
+
+        }
+    }
+
 def flex_today_matches_builder(home_team, away_team, home_goals, away_goals, time, home_code, away_code, home_team_events, away_team_events):
     picture_image_uri='https://api.fifa.com/api/v1/picture/flags-fwc2018-4/'
     home_scorer, away_scorer = build_goal_by_content(home_team_events, away_team_events)
